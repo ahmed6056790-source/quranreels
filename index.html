@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhader | المنصة الرقمية الإسلامية المتكاملة</title>
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <div class="logo-wrapper"
+                style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px;">
+                <div
+                    style="width: 60px; height: 60px; background: var(--primary); border-radius: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px var(--primary-glow);">
+                    <i class="fas fa-kaaba" style="font-size: 2rem; color: var(--bg-dark);"></i>
+                </div>
+                <h1>Bhader</h1>
+            </div>
+            <p class="subtitle">المنصة الشاملة للذكر، التلاوة، وصناعة المحتوى الإسلامي الراقي</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="switchSection('section-reels', this)">
+                <i class="fas fa-video"></i> قرآن ريلز
+            </button>
+            <button class="nav-tab" onclick="switchSection('section-reader', this)">
+                <i class="fas fa-book-quran"></i> المصحف
+            </button>
+            <button class="nav-tab" onclick="switchSection('section-adhkar', this)">
+                <i class="fas fa-rosary"></i> الأذكار
+            </button>
+            <button class="nav-tab" onclick="switchSection('section-discover', this)">
+                <i class="fas fa-star-and-crescent"></i> زاد المسلم
+            </button>
+            <button class="nav-tab" onclick="switchSection('section-about', this)">
+                <i class="fas fa-info-circle"></i> عن المنصة
+            </button>
+        </nav>
+
+        <main>
+            <!-- 1. Quran Reels Engine -->
+            <div id="section-reels" class="content-section">
+                <div class="editor-grid">
+                    <!-- Left: Controls -->
+                    <div class="glass main-panel">
+                        <div class="section-header"
+                            style="margin-bottom: 2rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 1rem;">
+                            <h2 style="font-size: 1.8rem; color: var(--primary);"><i
+                                    class="fas fa-wand-magic-sparkles"></i> محرك الريلز</h2>
+                        </div>
+
+                        <div class="editor-scroll" style="max-height: 700px; overflow-y: auto; padding-right: 5px;">
+                            <div class="input-group">
+                                <label><i class="fas fa-microphone"></i> اختيار القارئ</label>
+                                <select id="reciter" class="premium-input"></select>
+                                <!-- Custom picker will be injected here by script -->
+                            </div>
+
+                            <div class="input-group">
+                                <label><i class="fas fa-magnifying-glass"></i> ابحث عن سورة</label>
+                                <input type="text" id="surah-search" placeholder="اكتب اسم السورة..."
+                                    class="premium-input" style="margin-bottom: 10px;">
+                                <select id="surah" class="premium-input"></select>
+                            </div>
+
+                            <div class="controls-row">
+                                <div class="input-group">
+                                    <label>من آية</label>
+                                    <input type="number" id="ayah-from" value="1" min="1" class="premium-input">
+                                </div>
+                                <div class="input-group">
+                                    <label>إلى آية</label>
+                                    <input type="number" id="ayah-to" value="3" min="1" class="premium-input">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label><i class="fas fa-font"></i> نوع الخط</label>
+                                <select id="font-family" class="premium-input">
+                                    <option value="'Amiri', serif">خط مصحفي (Amiri)</option>
+                                    <option value="'Tajawal', sans-serif">خط عصري (Tajawal)</option>
+                                    <option value="'Lateef', cursive">خط لطيف (Lateef)</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label><i class="fas fa-text-height"></i> حجم الخط: <span
+                                        id="font-size-val">85</span>px</label>
+                                <input type="range" id="font-size-slider" min="40" max="150" value="85"
+                                    class="premium-range">
+                            </div>
+
+                            <div class="input-group">
+                                <label><i class="fas fa-image"></i> خلفية الفيديو</label>
+                                <div class="tabs-small" style="display: flex; gap: 10px; margin-bottom: 15px;">
+                                    <button class="tab-btn active" onclick="switchBgTab('static', this)">طبيعة</button>
+                                    <button class="tab-btn" onclick="switchBgTab('animated', this)">متحرك</button>
+                                </div>
+                                <div id="bg-library" class="bg-library"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Preview -->
+                    <div class="preview-container">
+                        <div class="canvas-wrapper">
+                            <canvas id="main-canvas"></canvas>
+                        </div>
+
+                        <div class="controls-row">
+                            <button id="preview-btn" class="btn-main secondary">
+                                <i class="fas fa-play"></i> تشغيل المعاينة
+                            </button>
+                            <button id="download-btn" class="btn-main primary">
+                                <i class="fas fa-download"></i> تصدير الفيديو (HD)
+                            </button>
+                        </div>
+                        <button id="force-download-btn" class="btn-main secondary" style="display: none;">
+                            <i class="fas fa-save"></i> حفظ الملف النهائي
+                        </button>
+
+                        <audio id="audio-player" style="display: none;"></audio>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Quran Reader -->
+            <div id="section-reader" class="content-section" style="display: none;">
+                <div class="glass main-panel">
+                    <div id="quran-index-view">
+                        <div class="section-header"
+                            style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
+                            <h2 style="font-size: 2rem;"><i class="fas fa-book-open"></i> الفهرس العام</h2>
+                        </div>
+                        <div id="quran-surahs-grid" class="remembrance-grid"></div>
+                    </div>
+
+                    <div id="quran-reader-view" style="display: none;">
+                        <button onclick="backToQuranIndex()" class="btn-main secondary"
+                            style="width: auto; margin-bottom: 20px;">
+                            <i class="fas fa-arrow-right"></i> عودة للفهرس
+                        </button>
+                        <div class="reader-header">
+                            <h2 id="reader-surah-name"
+                                style="font-size: 3rem; font-family: 'Amiri', serif; color: var(--primary);"></h2>
+                            <p id="reader-surah-info" style="color: var(--text-dim);"></p>
+                            <div
+                                style="margin-top: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                                <select id="reader-reciter" class="premium-input" style="width: 250px;"></select>
+                                <button id="play-full-surah" class="btn-main primary" style="width: auto;"
+                                    onclick="togglePlayFullSurah()">
+                                    <i class="fas fa-play"></i> تشغيل السورة كاملة
+                                </button>
+                            </div>
+                        </div>
+                        <div id="reader-bismillah"
+                            style="text-align: center; font-family: 'Amiri', serif; font-size: 2.5rem; margin: 30px 0; color: #fff;">
+                            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+                        <div id="reader-content" class="reader-content"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Adhkar Section -->
+            <div id="section-adhkar" class="content-section" style="display: none;">
+                <div class="glass main-panel">
+                    <div class="section-header" style="margin-bottom: 2rem; text-align: center;">
+                        <h2 style="font-size: 2.5rem; margin-bottom: 10px;">حصن المسلم</h2>
+                        <p style="color: var(--text-dim);">الأذكار والأدعية اليومية كاملة من الكتاب والسنة</p>
+                    </div>
+
+                    <div class="nav-tabs" style="margin-bottom: 3rem; flex-wrap: wrap;">
+                        <button class="nav-tab active" onclick="filterAdhkar(event, 'morning')">الصباح</button>
+                        <button class="nav-tab" onclick="filterAdhkar(event, 'evening')">المساء</button>
+                        <button class="nav-tab" onclick="filterAdhkar(event, 'prayer')">بعد الصلاة</button>
+                        <button class="nav-tab" onclick="filterAdhkar(event, 'sleep')">النوم</button>
+                        <button class="nav-tab" onclick="filterAdhkar(event, 'duas')">أدعية قرآنية</button>
+                        <button class="nav-tab" onclick="filterAdhkar(event, 'prophetic')">أدعية نبوية</button>
+                    </div>
+
+                    <div id="adhkar-grid" class="remembrance-grid"></div>
+                </div>
+            </div>
+
+            <!-- 4. Zad Al-Muslim (Islamic Hub) -->
+            <div id="section-discover" class="content-section" style="display: none;">
+                <div class="glass main-panel">
+                    <div id="zad-main-grid" class="zad-grid">
+                        <div class="zad-card">
+                            <span class="zad-icon">📿</span>
+                            <h3 style="color: var(--primary);">المسبحة الإلكترونية</h3>
+                            <p style="margin-bottom: 20px;">سبح واستغفر بلمسات بسيطة.</p>
+                            <div id="tasbeeh-count"
+                                style="font-size: 4rem; font-weight: 900; margin-bottom: 20px; cursor: pointer; color: var(--primary);"
+                                onclick="incrementTasbeeh()">0</div>
+                            <button class="btn-main secondary" onclick="resetTasbeeh()">تصفير</button>
+                        </div>
+
+                        <div class="zad-card">
+                            <span class="zad-icon">📻</span>
+                            <h3 style="color: var(--primary);">إذاعة القرآن</h3>
+                            <p style="margin-bottom: 20px;">بث حي لأجمل التلاوات.</p>
+                            <select id="radio-station-select" class="premium-input"
+                                style="margin-bottom: 15px;"></select>
+                            <button id="btn-play-radio" class="btn-main primary" onclick="toggleQuranRadio()">تشغيل
+                                ▶</button>
+                            <audio id="quran-radio-player" style="display:none;"></audio>
+                        </div>
+
+                        <div class="zad-card">
+                            <span class="zad-icon">✨</span>
+                            <h3 style="color: var(--primary);">أسماء الله الحسنى</h3>
+                            <p style="margin-bottom: 20px;">تأمل في معاني أسماء الخالق.</p>
+                            <button onclick="openZadSubView('names-view')" class="btn-main secondary">تصفح
+                                الأسماء</button>
+                        </div>
+
+                        <div class="zad-card">
+                            <span class="zad-icon">🕌</span>
+                            <h3 style="color: var(--primary);">المواقيت والقبلة</h3>
+                            <p style="margin-bottom: 20px;">صلاتك في وقتها وباتجاه دقيق.</p>
+                            <button onclick="openZadSubView('prayer-view')" class="btn-main secondary">المواقيت
+                                والقبلة</button>
+                        </div>
+                    </div>
+
+                    <!-- Sub Views -->
+                    <div id="names-view" class="zad-sub-view" style="display: none;">
+                        <button onclick="backToZadMain()" class="btn-main secondary"
+                            style="width: auto; margin-bottom: 30px;"><i class="fas fa-arrow-right"></i> عودة</button>
+                        <div id="names-grid" class="remembrance-grid"></div>
+                    </div>
+
+                    <div id="prayer-view" class="zad-sub-view" style="display: none;">
+                        <button onclick="backToZadMain()" class="btn-main secondary"
+                            style="width: auto; margin-bottom: 30px;"><i class="fas fa-arrow-right"></i> عودة</button>
+                        <div id="prayer-times-content" style="text-align: center;">
+                            <p id="prayer-location" style="color: var(--text-dim); margin-bottom: 20px;">جاري تحديد
+                                موقعك...</p>
+                            <div id="prayer-times-list"></div>
+                            <div class="qibla-compass">
+                                <div id="qibla-needle"></div>
+                            </div>
+                            <p id="qibla-degrees" style="color: var(--primary); font-size: 1.2rem; margin-top: 10px;">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. About Section -->
+            <div id="section-about" class="content-section" style="display: none;">
+                <div class="glass main-panel">
+                    <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                        <div
+                            style="width: 100px; height: 100px; background: var(--primary); border-radius: 30px; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; box-shadow: 0 0 40px var(--primary-glow);">
+                            <i class="fas fa-heart" style="font-size: 3rem; color: var(--bg-dark);"></i>
+                        </div>
+                        <h2 style="font-size: 2.5rem; margin-bottom: 20px;">عن منصة Bhader</h2>
+                        <p style="font-size: 1.2rem; line-height: 2; color: var(--text-dim);">
+                            Bhader هي مبادرة رقمية تهدف إلى تمكين المسلمين من استخدام التقنية في خدمة دينهم. نوفر أدوات
+                            لإنشاء محتوى إسلامي بجودة عالية وسهولة فائقة.
+                        </p>
+                        <hr style="border: none; border-top: 1px solid var(--glass-border); margin: 40px 0;">
+                        <div class="zad-grid">
+                            <div class="zad-card">
+                                <i class="fas fa-shield-halved"
+                                    style="font-size: 2rem; color: var(--primary); margin-bottom: 15px;"></i>
+                                <h4>خصوصية تامة</h4>
+                                <p>جميع المعالجة تتم في جهازك مباشرة.</p>
+                            </div>
+                            <div class="zad-card">
+                                <i class="fas fa-bolt"
+                                    style="font-size: 2rem; color: var(--primary); margin-bottom: 15px;"></i>
+                                <h4>سرعة فائقة</h4>
+                                <p>تقنيات معالجة فيديو متقدمة ومباشرة.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-grid">
+                <div>
+                    <h3 style="color: white; margin-bottom: 20px;">Bhader.net</h3>
+                    <p style="color: var(--text-dim); font-size: 0.95rem; line-height: 1.8;">
+                        نشر الخير والجمال في العالم الرقمي. ساهم معنا بنشر المنصة ليعم الأجر.
+                    </p>
+                </div>
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 20px;">روابط سريعة</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><a href="#" style="color: var(--text-dim); text-decoration: none;"
+                                onclick="switchSection('section-reels')">صانع الريلز</a></li>
+                        <li><a href="#" style="color: var(--text-dim); text-decoration: none;"
+                                onclick="switchSection('section-reader')">المصحف الشريف</a></li>
+                        <li><a href="#" style="color: var(--text-dim); text-decoration: none;"
+                                onclick="switchSection('section-adhkar')">حصن المسلم</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 20px;">تواصل معنا</h4>
+                    <div style="display: flex; gap: 15px; font-size: 1.5rem;">
+                        <a href="#" style="color: var(--text-dim);"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="color: var(--text-dim);"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: var(--text-dim);"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div
+                style="text-align: center; margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--glass-border); color: var(--text-dim); font-size: 0.9rem;">
+                جميع الحقوق محفوظة &copy; 2026 - Bhader.net
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modals -->
+    <div id="progress-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="progress-status" style="color: var(--primary); margin-bottom: 15px;">جاري التجهيز...</h3>
+            <div class="progress-container">
+                <div id="modal-progress-fill" class="progress-fill"></div>
+            </div>
+            <p id="playback-percent" style="color: var(--primary); font-weight: bold; font-size: 1.2rem;">0%</p>
+            <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 10px;">يرجى عدم إغلاق المتصفح أثناء
+                المعالجة</p>
+
+            <div id="audio-visualizer-container" style="margin-top: 25px;">
+                <div id="audio-level-bar-track">
+                    <div id="audio-level-bar"></div>
+                </div>
+            </div>
+
+            <div id="modal-actions" style="margin-top: 20px; display: none;">
+                <button onclick="saveFile()" class="btn-main primary" style="width: 100%;">
+                    <i class="fas fa-file-download"></i> تحميل الفيديو (MP4)
+                </button>
+                <p style="text-align: center; margin-top: 15px; color: var(--text-dim); font-size: 0.9rem;">
+                    ✅ الفيديو جاهز للتحميل. اضغط الزر أعلاه لحفظ الملف على جهازك.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Dependencies -->
+    <script src="ffmpeg.js"></script>
+    <script src="ffmpeg-util.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
